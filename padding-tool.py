@@ -1,9 +1,12 @@
+"""Module padding-tool."""
+
 import argparse
 
 __version__ = "1.0.1"
 
 
 def pad_file(in_file, out_file, needed_size, padding_value, chunk_size=1024 * 1024):
+    """ pad_file """
     total_written = 0
 
     with open(in_file, 'rb') as fin, open(out_file, 'wb') as fout:
@@ -29,6 +32,7 @@ def pad_file(in_file, out_file, needed_size, padding_value, chunk_size=1024 * 10
 
 
 def main():
+    """ main """
     parser = argparse.ArgumentParser(description="Pad a binary file to a specific size with a given byte value.")
     parser.add_argument('--version', action='version', version=f"%(prog)s {__version__}")
     parser.add_argument('--in', dest='in_file', required=True, help='Input filename')
