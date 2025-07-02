@@ -38,7 +38,7 @@ def main():
     parser.add_argument('--in', dest='in_file', required=True, help='Input filename')
     parser.add_argument('--out', dest='out_file', required=True, help='Output filename')
     parser.add_argument('--needed_size', type=int, required=True, help='Total size of output file in bytes')
-    parser.add_argument('--padding_value', type=int, choices=range(0, 256), required=True,
+    parser.add_argument('--padding_value', type=int, choices=range(0, 256), required=False,
                         default=255, help='Byte value for padding (0-255, default: 255)')
 
     args = parser.parse_args()
