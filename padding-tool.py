@@ -1,11 +1,13 @@
 """Module padding-tool."""
 
 import argparse
+import os
 
 __version__ = "1.0.2"
 
 
 def pad_file(in_file, out_file, needed_size, padding_value, chunk_size=1024 * 1024):
+    """ pad_file """
     input_size = os.path.getsize(in_file)
 
     if input_size > needed_size:
