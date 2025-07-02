@@ -6,30 +6,43 @@ __version__ = "1.0.1"
 
 
 def pad_file(in_file, out_file, needed_size, padding_value, chunk_size=1024 * 1024):
-    """ pad_file """
-    total_written = 0
+    input_size = os.path.getsize(in_file)
 
-    with open(in_file, 'rb') as fin, open(out_file, 'wb') as fout:
-        while True:
-            chunk = fin.read(chunk_size)
-            if not chunk:
-                break
-            fout.write(chunk)
-            total_written += len(chunk)
+    if input_size > needed_size:
+        raise ValueError(f"Input file is larger than needed_size ({input_size} > {needed_size})")
 
-            if total_written > needed_size:
-                raise ValueError(f"Input file is larger than needed_size ({total_written} > {needed_size})")
+    remaining = needed_size - input_size
 
-        remaining = needed_size - total_written
-        if remaining > 0:
+    if remaining == 0:
+        print(f"File is already {needed_size} bytes. No padding needed.")
+        return
+
+    if in_file == out_file:
+        print(f"Appending padding to file '{in_file}' to reach {needed_size} bytes.")
+        with open(in_file, 'ab') as f:
             padding = bytes([padding_value]) * min(chunk_size, remaining)
             while remaining > 0:
                 to_write = padding[:min(len(padding), remaining)]
-                fout.write(to_write)
+                f.write(to_write)
                 remaining -= len(to_write)
+    else:
+        print(f"Creating new padded file '{out_file}' ({needed_size} bytes).")
+        total_written = 0
+        with open(in_file, 'rb') as fin, open(out_file, 'wb') as fout:
+            while True:
+                chunk = fin.read(chunk_size)
+                if not chunk:
+                    break
+                fout.write(chunk)
+                total_written += len(chunk)
 
-    print(f"Padded file saved to '{out_file}' ({needed_size} bytes)")
-
+            remaining = needed_size - total_written
+            if remaining > 0:
+                padding = bytes([padding_value]) * min(chunk_size, remaining)
+                while remaining > 0:
+                    to_write = padding[:min(len(padding), remaining)]
+                    fout.write(to_write)
+                    remaining -= len(to_write)
 
 def main():
     """ main """
