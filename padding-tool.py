@@ -2,7 +2,7 @@
 
 import argparse
 
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 
 
 def pad_file(in_file, out_file, needed_size, padding_value, chunk_size=1024 * 1024):
