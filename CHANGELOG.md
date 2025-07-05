@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.2] - 2025-07-05
+### Added
+- pypi repo
+
+
+### Changed
+- Returns exit codes 0 (success) and 1 (failure)
+- README update
+
+---
+
 ## [1.0.1] - 2025-07-01
 ### Added
 - Read/write input and output files in chunks to support large files efficiently

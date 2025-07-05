@@ -1,11 +1,12 @@
 """Module padding-tool."""
 
 import argparse
+import sys
 
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 
 
-def pad_file(in_file, out_file, needed_size, padding_value, chunk_size=1024 * 1024):
+def pad_file(in_file, out_file: str, needed_size: int, padding_value: int, chunk_size: int = 1024 * 1024) -> bool:
     """ pad_file """
     total_written = 0
 
@@ -18,7 +19,8 @@ def pad_file(in_file, out_file, needed_size, padding_value, chunk_size=1024 * 10
             total_written += len(chunk)
 
             if total_written > needed_size:
-                raise ValueError(f"Input file is larger than needed_size ({total_written} > {needed_size})")
+                print(f"Input file is larger than needed_size ({total_written} > {needed_size})")
+                return False
 
         remaining = needed_size - total_written
         if remaining > 0:
@@ -29,6 +31,7 @@ def pad_file(in_file, out_file, needed_size, padding_value, chunk_size=1024 * 10
                 remaining -= len(to_write)
 
     print(f"Padded file saved to '{out_file}' ({needed_size} bytes)")
+    return True
 
 
 def main():
@@ -43,7 +46,14 @@ def main():
 
     args = parser.parse_args()
 
-    pad_file(args.in_file, args.out_file, args.needed_size, args.padding_value)
+    success: bool = pad_file(args.in_file, args.out_file, args.needed_size, args.padding_value)
+
+    if success:
+        print(f"{args.out_file} successfully padded")
+        sys.exit(0)
+
+    print(f"Failed to pad {args.in_file}", file=sys.stderr)
+    sys.exit(1)
 
 
 if __name__ == "__main__":
