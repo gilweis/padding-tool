@@ -6,7 +6,7 @@ with open("README.md", encoding="utf-8") as f:
 
 setup(
     name="padding-tool",
-    version="1.0.2",
+    version="1.0.3",
     py_modules=["padding_tool"],
     install_requires=["requests"],
     entry_points={

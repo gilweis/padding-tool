@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "padding-tool"
-version = "1.0.2"
+version = "1.0.3"
 description = "A simple Python CLI tool to pad a binary file to a specified size using a given byte value."
 authors = [
   { name = "Gil Weisbord" }

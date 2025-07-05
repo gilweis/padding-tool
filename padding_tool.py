@@ -2,8 +2,9 @@
 
 import argparse
 import os
+import sys
 
-__version__ = "1.0.2"
+__version__ = "1.0.3"
 
 
 def pad_file(in_file, out_file: str, needed_size: int, padding_value: int, chunk_size: int = 1024 * 1024) -> bool:
@@ -17,7 +18,7 @@ def pad_file(in_file, out_file: str, needed_size: int, padding_value: int, chunk
 
     if remaining == 0:
         print(f"File is already {needed_size} bytes. No padding needed.")
-        return
+        return True
 
     if in_file == out_file:
         print(f"Appending padding to file '{in_file}' to reach {needed_size} bytes.")
