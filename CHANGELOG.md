@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.2] - 2025-07-02
+### Added
+- If --in and --out are different → create a new padded copy.
+- If they are the same → append padding directly to the existing file without rewriting or reading the full contents.
+  
+---
+
 ## [1.0.2] - 2025-07-05
 ### Added
 - pypi repo
