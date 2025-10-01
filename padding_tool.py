@@ -4,7 +4,7 @@ import argparse
 import os
 import sys
 
-__version__ = "1.0.3"
+__version__ = "1.0.4"
 
 
 def pad_file(in_file, out_file: str, needed_size: int, padding_value: int, chunk_size: int = 1024 * 1024) -> bool:
@@ -43,13 +43,6 @@ def pad_file(in_file, out_file: str, needed_size: int, padding_value: int, chunk
                 print(f"Input file is larger than needed_size ({total_written} > {needed_size})")
                 return False
 
-        remaining = needed_size - total_written
-        if remaining > 0:
-            padding = bytes([padding_value]) * min(chunk_size, remaining)
-            while remaining > 0:
-                to_write = padding[:min(len(padding), remaining)]
-                fout.write(to_write)
-                remaining -= len(to_write)
             remaining = needed_size - total_written
             if remaining > 0:
                 padding = bytes([padding_value]) * min(chunk_size, remaining)
